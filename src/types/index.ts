@@ -83,3 +83,34 @@ export interface Report {
   createdAt: string
   lastSent?: string
 }
+
+export interface ReportWidget {
+  id: string
+  type: 'metrics' | 'chart' | 'table' | 'text' | 'image'
+  title: string
+  config: Record<string, any>
+  position: { x: number; y: number }
+  size: { width: number; height: number }
+}
+
+export interface ReportTemplate {
+  id: string
+  name: string
+  description: string
+  widgets: ReportWidget[]
+  isDefault: boolean
+  createdAt: string
+}
+
+export interface MetricData {
+  label: string
+  value: string
+  change: string
+  trend: 'up' | 'down' | 'stable'
+}
+
+export interface ChartData {
+  date: string
+  positions: number
+  visibility: number
+}
