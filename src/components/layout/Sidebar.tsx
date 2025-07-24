@@ -16,7 +16,8 @@ import {
   Home,
   Target,
   Activity,
-  Zap
+  Zap,
+  TestTube
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -74,6 +75,12 @@ const secondaryNavigation = [
     href: '/automation',
     icon: Zap,
     description: 'Tâches automatisées'
+  },
+  {
+    name: 'Centre de Tests',
+    href: '/test',
+    icon: TestTube,
+    description: 'Tests et intégrations'
   },
   {
     name: 'Paramètres',

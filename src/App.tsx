@@ -11,6 +11,7 @@ import Competitive from '@/pages/Competitive'
 import AgencySettings from '@/pages/AgencySettings'
 import TeamManagement from '@/pages/TeamManagement'
 import Automation from '@/pages/Automation'
+import TestCenter from '@/pages/TestCenter'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="/team" element={<TeamManagement />} />
               <Route path="/automation" element={<Automation />} />
               <Route path="/settings" element={<AgencySettings />} />
+              <Route path="/test" element={<TestCenter />} />
             </Routes>
           </main>
         </div>

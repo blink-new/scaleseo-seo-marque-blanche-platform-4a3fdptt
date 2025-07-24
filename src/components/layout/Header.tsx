@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Bell, Search, Plus, ChevronDown } from 'lucide-react'
 import { Input } from '@/components/ui/input'
+import { NotificationCenter } from '../notifications/NotificationCenter'
 
 interface HeaderProps {
   className?: string
@@ -42,17 +43,7 @@ export function Header({ className }: HeaderProps) {
         </Button>
 
         {/* Notifications */}
-        <Button variant="ghost" size="sm" className="relative">
-          <Bell className="h-4 w-4" />
-          {notifications > 0 && (
-            <Badge
-              variant="destructive"
-              className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs"
-            >
-              {notifications}
-            </Badge>
-          )}
-        </Button>
+        <NotificationCenter />
 
         {/* User Menu */}
         <DropdownMenu>
