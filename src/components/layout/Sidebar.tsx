@@ -15,7 +15,8 @@ import {
   ChevronRight,
   Home,
   Target,
-  Activity
+  Activity,
+  Zap
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -67,6 +68,12 @@ const secondaryNavigation = [
     href: '/team',
     icon: Users,
     description: 'Gestion des utilisateurs'
+  },
+  {
+    name: 'Automatisation',
+    href: '/automation',
+    icon: Zap,
+    description: 'Tâches automatisées'
   },
   {
     name: 'Paramètres',

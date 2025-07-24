@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, Search, Filter, MoreHorizontal, Globe, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,14 +9,15 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Project } from '@/types';
+import { projectService } from '../services/database';
+import type { Project } from '../types';
 
 const Projects: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [newProject, setNewProject] = useState({
     name: '',
-    website: '',
+    websiteUrl: '',
     keywords: '',
     competitors: '',
     location: '',
@@ -28,7 +29,7 @@ const Projects: React.FC = () => {
     {
       id: '1',
       name: 'E-commerce Fashion',
-      website: 'https://boutique-mode.fr',
+      websiteUrl: 'https://boutique-mode.fr',
       agencyId: 'agency1',
       status: 'active',
       healthScore: 85,
@@ -36,12 +37,13 @@ const Projects: React.FC = () => {
       competitors: ['zalando.fr', 'asos.com'],
       location: 'France',
       createdAt: '2024-01-15',
-      lastAudit: '2024-01-20'
+      updatedAt: '2024-01-20',
+      userId: 'user1'
     },
     {
       id: '2',
       name: 'Restaurant Gastronomique',
-      website: 'https://restaurant-delice.fr',
+      websiteUrl: 'https://restaurant-delice.fr',
       agencyId: 'agency1',
       status: 'active',
       healthScore: 92,
@@ -49,12 +51,13 @@ const Projects: React.FC = () => {
       competitors: ['lafourchette.com', 'opentable.fr'],
       location: 'Paris, France',
       createdAt: '2024-01-10',
-      lastAudit: '2024-01-22'
+      updatedAt: '2024-01-22',
+      userId: 'user1'
     },
     {
       id: '3',
       name: 'Cabinet Dentaire',
-      website: 'https://dentiste-sourire.fr',
+      websiteUrl: 'https://dentiste-sourire.fr',
       agencyId: 'agency1',
       status: 'paused',
       healthScore: 78,
@@ -62,13 +65,14 @@ const Projects: React.FC = () => {
       competitors: ['doctolib.fr', 'dentego.fr'],
       location: 'Lyon, France',
       createdAt: '2024-01-05',
-      lastAudit: '2024-01-18'
+      updatedAt: '2024-01-18',
+      userId: 'user1'
     }
   ]);
 
   const filteredProjects = projects.filter(project =>
     project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.website.toLowerCase().includes(searchTerm.toLowerCase())
+    project.websiteUrl.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getStatusColor = (status: string) => {
@@ -92,7 +96,7 @@ const Projects: React.FC = () => {
     setIsAddDialogOpen(false);
     setNewProject({
       name: '',
-      website: '',
+      websiteUrl: '',
       keywords: '',
       competitors: '',
       location: '',
@@ -132,11 +136,11 @@ const Projects: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="website">Site web</Label>
+                  <Label htmlFor="websiteUrl">Site web</Label>
                   <Input
-                    id="website"
-                    value={newProject.website}
-                    onChange={(e) => setNewProject({...newProject, website: e.target.value})}
+                    id="websiteUrl"
+                    value={newProject.websiteUrl}
+                    onChange={(e) => setNewProject({...newProject, websiteUrl: e.target.value})}
                     placeholder="https://example.com"
                   />
                 </div>
@@ -229,7 +233,7 @@ const Projects: React.FC = () => {
                   <CardTitle className="text-lg font-medium">{project.name}</CardTitle>
                   <div className="flex items-center text-sm text-gray-500 mt-1">
                     <Globe className="w-4 h-4 mr-1" />
-                    {project.website.replace('https://', '')}
+                    {project.websiteUrl.replace('https://', '')}
                   </div>
                 </div>
                 <DropdownMenu>
@@ -298,7 +302,7 @@ const Projects: React.FC = () => {
 
               {/* Last Audit */}
               <div className="text-xs text-gray-500 pt-2 border-t">
-                Dernier audit: {new Date(project.lastAudit || project.createdAt).toLocaleDateString('fr-FR')}
+                Dernière mise à jour: {new Date(project.updatedAt || project.createdAt).toLocaleDateString('fr-FR')}
               </div>
             </CardContent>
           </Card>

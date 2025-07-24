@@ -7,6 +7,10 @@ import Projects from '@/pages/Projects'
 import AuditSEO from '@/pages/AuditSEO'
 import Performance from '@/pages/Performance'
 import Reports from '@/pages/Reports'
+import Competitive from '@/pages/Competitive'
+import AgencySettings from '@/pages/AgencySettings'
+import TeamManagement from '@/pages/TeamManagement'
+import Automation from '@/pages/Automation'
 
 function App() {
   return (
@@ -27,10 +31,11 @@ function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/audit" element={<AuditSEO />} />
               <Route path="/performance" element={<Performance />} />
-              <Route path="/competitors" element={<div>Concurrence - En développement</div>} />
+              <Route path="/competitors" element={<Competitive />} />
               <Route path="/reports" element={<Reports />} />
-              <Route path="/team" element={<div>Équipe - En développement</div>} />
-              <Route path="/settings" element={<div>Paramètres - En développement</div>} />
+              <Route path="/team" element={<TeamManagement />} />
+              <Route path="/automation" element={<Automation />} />
+              <Route path="/settings" element={<AgencySettings />} />
             </Routes>
           </main>
         </div>

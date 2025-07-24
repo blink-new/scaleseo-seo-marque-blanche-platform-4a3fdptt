@@ -10,27 +10,121 @@ export interface User {
 export interface Agency {
   id: string
   name: string
-  logo?: string
+  logoUrl?: string
   primaryColor: string
   secondaryColor: string
   domain?: string
+  description?: string
+  address?: string
+  phone?: string
+  email?: string
+  website?: string
   createdAt: string
+  updatedAt: string
+  userId: string
 }
 
 export interface Project {
   id: string
   name: string
-  website: string
-  agencyId: string
-  status: 'active' | 'paused' | 'completed'
-  healthScore: number
+  websiteUrl: string
   keywords: string[]
   competitors: string[]
   location: string
+  status: 'active' | 'paused' | 'completed'
+  healthScore: number
   createdAt: string
-  lastAudit?: string
+  updatedAt: string
+  userId: string
+  agencyId?: string
 }
 
+export interface TeamMember {
+  id: string
+  email: string
+  name: string
+  role: 'admin' | 'manager' | 'consultant'
+  permissions: string[]
+  status: 'active' | 'pending' | 'inactive'
+  invitedAt: string
+  userId: string
+  agencyId?: string
+}
+
+export interface SEOAudit {
+  id: string
+  projectId: string
+  healthScore: number
+  issuesFound: number
+  criticalIssues: number
+  warnings: number
+  auditData: any
+  createdAt: string
+  userId: string
+}
+
+export interface KeywordPosition {
+  id: string
+  projectId: string
+  keyword: string
+  position: number
+  searchVolume: number
+  difficulty: number
+  url: string
+  date: string
+  userId: string
+}
+
+export interface Backlink {
+  id: string
+  projectId: string
+  sourceDomain: string
+  targetUrl: string
+  anchorText: string
+  domainAuthority: number
+  status: 'active' | 'lost' | 'new'
+  discoveredAt: string
+  userId: string
+}
+
+export interface Report {
+  id: string
+  name: string
+  templateData: any
+  projectId?: string
+  scheduleType: 'manual' | 'weekly' | 'monthly'
+  scheduleConfig: any
+  lastSent?: string
+  createdAt: string
+  userId: string
+}
+
+export interface Competitor {
+  id: string
+  projectId: string
+  domain: string
+  name?: string
+  visibilityScore: number
+  avgPosition: number
+  keywordsCount: number
+  createdAt: string
+  userId: string
+}
+
+export interface AutomationTask {
+  id: string
+  type: 'audit' | 'report' | 'monitoring'
+  projectId?: string
+  schedule: string
+  config: any
+  lastRun?: string
+  nextRun?: string
+  status: 'active' | 'paused' | 'error'
+  createdAt: string
+  userId: string
+}
+
+// Legacy interfaces for compatibility
 export interface KeywordRanking {
   id: string
   projectId: string
@@ -54,34 +148,6 @@ export interface AuditIssue {
   priority: number
   status: 'open' | 'fixed' | 'ignored'
   createdAt: string
-}
-
-export interface Backlink {
-  id: string
-  projectId: string
-  sourceUrl: string
-  targetUrl: string
-  anchorText: string
-  domainAuthority: number
-  status: 'active' | 'lost' | 'new'
-  firstSeen: string
-  lastSeen: string
-}
-
-export interface Report {
-  id: string
-  projectId: string
-  name: string
-  template: string
-  scheduledSend?: {
-    frequency: 'weekly' | 'monthly'
-    dayOfWeek?: number
-    dayOfMonth?: number
-    time: string
-    recipients: string[]
-  }
-  createdAt: string
-  lastSent?: string
 }
 
 export interface ReportWidget {
